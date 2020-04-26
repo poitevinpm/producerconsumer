@@ -2,18 +2,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.InvalidAttributeValueException;
+
 public class DelayedQueueTest {
 
     public static void test() {
-        try{
+        try {
             DelayedQueue dq = new DelayedQueue(3000L);
-            String[] stringArr = new String[] {
-                "Hello",
-                "from",
-                "the",
-                "other",
-                "side"
-            };
+            String[] stringArr = new String[] { "Hello", "from", "the", "other", "side" };
             List<Word> toSend = wordsFromArr(stringArr);
             int n = toSend.size();
             for (Word w : toSend) {
@@ -33,7 +29,7 @@ public class DelayedQueueTest {
 
     }
 
-    private static List<Word> wordsFromArr(String[] arr) {
+    private static List<Word> wordsFromArr(String[] arr) throws InvalidAttributeValueException {
         List<Word> res = new ArrayList<>();
         for (String s : arr) {
             res.add(new Word(s));

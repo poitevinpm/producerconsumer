@@ -30,10 +30,10 @@ public final class DelayedQueue implements BlockingQueue<Word> {
     public void start() {
         executor.scheduleWithFixedDelay(
             () -> {
-                System.out.println("Starting to transfer words from input to output");
+                // System.out.println("Starting to transfer words from input to output");
                 try {
                     while(input.peek() != null) {
-                        System.out.println("Transfer word: " + input.peek().get());
+                        // System.out.println("Transfer word: " + input.peek().get());
                         output.put(input.take());
                     }
                 } catch (InterruptedException e) {
