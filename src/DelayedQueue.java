@@ -16,12 +16,14 @@ import java.util.concurrent.TimeUnit;
 public final class DelayedQueue implements BlockingQueue<Word> {
 
     private final long delay;
+    private final int maxBatch;
     private final BlockingQueue<Word> input;
     private final BlockingQueue<Word> output;
     private final ScheduledExecutorService executor;
 
-    public DelayedQueue(long delayInMs) {
+    public DelayedQueue(long delayInMs, int maxBatch) {
         delay = delayInMs;
+        this.maxBatch = maxBatch;
         input = new LinkedBlockingDeque<>();
         output = new LinkedBlockingDeque<>();
         executor = new ScheduledThreadPoolExecutor(1);
@@ -32,9 +34,11 @@ public final class DelayedQueue implements BlockingQueue<Word> {
             () -> {
                 // System.out.println("Starting to transfer words from input to output");
                 try {
-                    while(input.peek() != null) {
+                    int i = 0;
+                    while(input.peek() != null && i < maxBatch) {
                         // System.out.println("Transfer word: " + input.peek().get());
                         output.put(input.take());
+                        i++;
                     }
                 } catch (InterruptedException e) {
                     System.out.print("thread interrupted");

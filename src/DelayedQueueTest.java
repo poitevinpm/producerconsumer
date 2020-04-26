@@ -8,7 +8,7 @@ public class DelayedQueueTest {
 
     public static void test() {
         try {
-            DelayedQueue dq = new DelayedQueue(3000L);
+            DelayedQueue dq = new DelayedQueue(3000L, 3);
             String[] stringArr = new String[] { "Hello", "from", "the", "other", "side" };
             List<Word> toSend = wordsFromArr(stringArr);
             int n = toSend.size();
